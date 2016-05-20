@@ -1,7 +1,0 @@
-git clone ...
-
-切换跟踪 gh-pages 分支，并获取数据
-
-git checkout -b gh-pages origin/gh-pages
-
-git fetch

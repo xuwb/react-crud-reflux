@@ -17,21 +17,27 @@ define(function (require, exports, module) {
 			e.stopPropagation();
 
 			switch (this.props.btnName) {
+				case '添加':
+					this.props.callbackParent();
+					break;
 				case '修改':
-					console.log('update');
-					this.props.callbackParent(this.props.data);
+					this.props.callbackParent('modify', this.props.data);
 					break;
 				case '删除':
-					if (confirm("是否删除" + this.props.data.title + "？")) {
-						this.props.callbackParent(this.props.data);
-					}
+					// if(confirm("是否删除" + this.props.data.title + "？")){
+					// 	this.props.callbackParent('delete', this.props.data);
+					// }
+					this.props.callbackParent('delete', this.props.data);
+					break;
+				default:
+					this.props.callbackParent(e);
 					break;
 			}
 		},
 		render: function render() {
 			return React.createElement(
 				'a',
-				{ href: "#", onClick: this.clickHandler },
+				{ href: "#", className: this.props.className, onClick: this.clickHandler },
 				this.props.btnName
 			);
 		}

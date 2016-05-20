@@ -3,10 +3,10 @@
 define(function(require) {
 	var React     = require('react'),
 		ReactDOM  = require('reactDom'),
-		DataTable = require('jsx/dataTable');
+		Containter = require('jsx/container');
 
-	var dataTable = ReactDOM.render(
-		<DataTable source="src/data.json" />,
+	ReactDOM.render(
+		<Containter dataSource="src/data.json" />,
 		document.getElementById('main')
 	);
 })

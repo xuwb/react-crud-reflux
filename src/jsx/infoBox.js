@@ -1,19 +1,17 @@
 'use strict';
 
 define(function (require, exports, module) {
-	var React = require('react');
+	var React = require('react'),
+	    CrudBtn = require('./crudBtn');
 
 	// 添加修改信息
 	var InfoBox = React.createClass({
 		displayName: 'InfoBox',
 
 		getInitialState: function getInitialState() {
-			return { id: '', title: '', author: '' };
+			return { id: 0, title: '', author: '' };
 		},
 		okHandler: function okHandler(e) {
-			e.preventDefault();
-			e.stopPropagation();
-
 			var newInfo, showState;
 
 			if (!this.refs.title.value) {
@@ -22,7 +20,6 @@ define(function (require, exports, module) {
 				alert('标题不能为空');
 			} else {
 				var infoId = this.state.id;
-				if (!infoId) infoId = this.props.articalId;
 
 				newInfo = {
 					id: infoId,
@@ -37,9 +34,6 @@ define(function (require, exports, module) {
 			this.props.callbackParent(showState, newInfo);
 		},
 		cancelHander: function cancelHander(e) {
-			e.preventDefault();
-			e.stopPropagation();
-
 			this.reset();
 			this.props.callbackParent('none');
 		},
@@ -56,7 +50,7 @@ define(function (require, exports, module) {
 			});
 		},
 		render: function render() {
-			// 不能再渲染过程中（render，componentDidUpdate等）调用 this.setState，会导致死循环
+			// 不能在渲染过程中（render，componentDidUpdate等）调用 this.setState，会导致死循环
 			return React.createElement(
 				'form',
 				null,
@@ -95,16 +89,8 @@ define(function (require, exports, module) {
 				React.createElement(
 					'div',
 					{ className: 'col-btn' },
-					React.createElement(
-						'a',
-						{ href: '#', className: 'btn btn-ok', onClick: this.okHandler },
-						'确定'
-					),
-					React.createElement(
-						'a',
-						{ href: '#', className: 'btn btn-cancel', onClick: this.cancelHander },
-						'取消'
-					)
+					React.createElement(CrudBtn, { btnName: '确定', className: 'btn btn-ok', callbackParent: this.okHandler }),
+					React.createElement(CrudBtn, { btnName: '取消', className: 'btn btn-cancel', callbackParent: this.cancelHander })
 				)
 			);
 		}

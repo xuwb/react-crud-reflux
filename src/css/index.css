@@ -31,6 +31,13 @@ body {
     color: #fff;
     background: #999;
 }
+.lnk {
+    color: #0086b3;
+    text-decoration: none;
+}
+.lnk:hover {
+    color: orange;
+}
 .col-info {
     position: relative;
     display: none;
@@ -61,10 +68,6 @@ body {
 }
 .col-info input {
     width: 220px;
-}
-.btn-ok, .btn-cancel {
-
-    
 }
 .col-table {
     text-align: center;

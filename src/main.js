@@ -3,7 +3,7 @@
 define(function (require) {
 	var React = require('react'),
 	    ReactDOM = require('reactDom'),
-	    DataTable = require('jsx/dataTable');
+	    Containter = require('jsx/container');
 
-	var dataTable = ReactDOM.render(React.createElement(DataTable, { source: 'src/data.json' }), document.getElementById('main'));
+	ReactDOM.render(React.createElement(Containter, { dataSource: 'src/data.json' }), document.getElementById('main'));
 });
