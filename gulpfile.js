@@ -8,18 +8,18 @@ var gulp = require('gulp'),
 var matchRex = /(src.*)\/.*\.(\w+)/;
 var babel = require('gulp-babel');
 var babelTask = (e) => {
-	// e.path
-	// E:\软通动力\项目\reactjs\react-crud-reflux\src\dataRow.jsx
+    // e.path
+    // E:\软通动力\项目\reactjs\react-crud-reflux\src\dataRow.jsx
     var match = e.path.replace(/\\/g, '/').match( matchRex ),
         file = match[0],   // src/dataRow.jsx
         filePath = match[1],
         extendName = match[2];
-	
-	// # ES2015转码规则
-	// $ npm install --save-dev babel-preset-es2015
+    
+    // # ES2015转码规则
+    // $ npm install --save-dev babel-preset-es2015
 
-	// # react转码规则
-	// $ npm install --save-dev babel-preset-react
+    // # react转码规则
+    // $ npm install --save-dev babel-preset-react
     if(extendName == 'jsx' || extendName == 'es6')
     {
         gulp.src( file )
