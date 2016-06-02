@@ -2,7 +2,9 @@
 
 define(function (require, exports, module) {
     var React = require('react'),
-        CrudBtn = require('./crudBtn'),
+
+    // ReactDOM  = require('reactDom'),
+    CrudBtn = require('./crudBtn'),
         InfoBox = require('./infoBox'),
         DataTable = require('./dataTable');
 
@@ -30,7 +32,10 @@ define(function (require, exports, module) {
             infoBox.setState({ id: this.state.articalId });
         },
         onModifyClick: function onModifyClick(value) {
-
+            // ReactDOM.findDOMNode 获取真实DOM，等同于getElementById对象
+            // console.log(ReactDOM.findDOMNode(this.refs.infoBox).setAttribute('class', 'aa'));
+            // console.log(ReactDOM.findDOMNode(this.refs.infoBox));
+            // console.log(this.refs.infoBox);
             this.refs.infoBox.setState({
                 id: value.id,
                 title: value.title,

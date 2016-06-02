@@ -6,7 +6,8 @@
 			'react'   : 'build/react',
 			'reactDom': 'build/react-dom',
 			'reflux'  : 'build/reflux',
-			'init'	  : 'main'
+			'init'	  : 'main',
+            'promise' : 'common/promise'
 		},
 		debug: true,
 		charset: 'utf-8'

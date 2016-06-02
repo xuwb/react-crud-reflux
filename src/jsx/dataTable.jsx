@@ -2,12 +2,17 @@
 
 // 主体
 define(function(require, exports, module){
-    var React = require('react');
+    var React     = require('react'),
+        Reflux    = require('reflux');
 
-    var CrudBtn = require('./crudBtn'),
-        DataRow = require('./dataRow');
+    var CrudBtn   = require('./crudBtn'),
+        DataRow   = require('./dataRow');
+
+    var CrudStore = require('../stores/crud_store');
 
     var DataTable = React.createClass({
+        mixins: [Reflux.connect(CrudStore, 'data')],
+
         getInitialState: function(){
             return {
                 data: []
@@ -29,6 +34,7 @@ define(function(require, exports, module){
         },
         render: function(){
             var list = [];
+            // console.log(this.state.data);
             this.state.data.forEach(function(value) {
                 list.push(<DataRow key={value.id} data={value} callbackParent={this.onTableBtnClick} />)
             }.bind(this));
@@ -46,20 +52,20 @@ define(function(require, exports, module){
                     <tbody>{list}</tbody>
                 </table>
             )
-        },
-        componentDidMount: function(){
-            var self = this;
-            $.ajax({
-                type: 'get',
-                url: self.props.source,
-                success: function(data){
-                    self.setState({
-                        data: data
-                    });
-                    self.props.setLastId(parseInt(data[data.length-1].id));
-                }
-            })
         }
+        // componentDidMount: function(){
+        //     var self = this;
+        //     $.ajax({
+        //         type: 'get',
+        //         url: self.props.source,
+        //         success: function(data){
+        //             self.setState({
+        //                 data: data
+        //             });
+        //             self.props.setLastId(parseInt(data[data.length-1].id));
+        //         }
+        //     })
+        // }
     });
     module.exports = DataTable;
 });

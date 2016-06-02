@@ -1,6 +1,8 @@
 'use strict';
 
 define(function(require, exports, module) {
+	var Promise = require('./promise');
+
 	module.exports = {
 		
 		// obj:      时间字符串
@@ -24,6 +26,18 @@ define(function(require, exports, module) {
 	        else {   
 	            return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s + "." + mi;   
 	        }
+	    },
+	    fetch: function(url) {
+	    	var promise = new Promise(function(resolve, reject) {
+	    		$.ajax({
+	    			url: url,
+	    			type: 'get',
+	    			dataType: 'json',
+	    			success: resolve,
+	    			error: reject
+	    		});
+	    	});
+	    	return promise;
 	    }
 	}
 })
