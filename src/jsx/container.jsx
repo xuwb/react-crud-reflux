@@ -8,10 +8,10 @@ define(function(require, exports, module) {
         DataTable = require('./dataTable');
 
     var Container = React.createClass({
+
         getInitialState: function(){
             return {
                 infoBtnType: 'add',
-                articalId: 0,
                 infoStyle: {
                     display: 'none'
                 }
@@ -19,14 +19,13 @@ define(function(require, exports, module) {
         },
         onAddClick: function() {
             this.setState({
-                infoBtnType: 'add',
+                // infoBtnType: 'add',
                 infoStyle: {
                     display: 'block'
                 }
             });
 
-            var infoBox = this.refs.infoBox;
-            infoBox.setState({id: this.state.articalId});
+            this.refs.infoBox.setState({id: null});
         },
         onModifyClick: function(value){
             // ReactDOM.findDOMNode 获取真实DOM，等同于getElementById对象
@@ -40,34 +39,34 @@ define(function(require, exports, module) {
             });
 
             this.setState({
-                infoBtnType: 'modify',
+                // infoBtnType: 'modify',
                 infoStyle: {
                     display: 'block'
                 }
-            })
+            });
         },
-        onInfoClick: function(show, value){
-            var dataTable = this.refs.dataTable,
-                list = dataTable.state.data,
-                infoBtnType = this.state.infoBtnType;
+        onInfoClick: function(show){
+            // var dataTable = this.refs.dataTable,
+            //     list = dataTable.state.data,
+            //     infoBtnType = this.state.infoBtnType;
 
-            if(value) {
-                if(infoBtnType == 'add') {
-                    var newId = ++value.id;
-                    this.setState({articalId: newId});
-                    list.push(value);
-                }
-                if(infoBtnType == 'modify') {
-                    var index; 
-                    for(index in list){   
-                        if(list[index].id == value.id) break; 
-                    }
-                    list.splice(index, 1, value);
-                }
-                this.refs.dataTable.setState({
-                    data: list
-                });
-            }
+            // if(value) {
+            //     if(infoBtnType == 'add') {
+            //         var newId = ++value.id;
+            //         this.setState({articalId: newId});
+            //         list.push(value);
+            //     }
+            //     if(infoBtnType == 'modify') {
+            //         var index; 
+            //         for(index in list){   
+            //             if(list[index].id == value.id) break; 
+            //         }
+            //         list.splice(index, 1, value);
+            //     }
+            //     this.refs.dataTable.setState({
+            //         data: list
+            //     });
+            // }
             this.setState({
                 infoStyle: {
                     display: show

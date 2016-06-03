@@ -8,27 +8,63 @@ define(function(require, exports, module){
     var CrudBtn   = require('./crudBtn'),
         DataRow   = require('./dataRow');
 
-    var CrudStore = require('../stores/crud_store');
+    var CrudStore = require('../stores/crud_store'),
+        CrudActions = require('../actions/crud_actions');
 
     var DataTable = React.createClass({
-        mixins: [Reflux.connect(CrudStore, 'data')],
+        // mixins: [Reflux.connect(CrudStore, 'data')],           // 直接修改this.state.data
+        mixins: [Reflux.listenTo(CrudStore, 'onDataChange')],     // crudStore 变化时，调用 onDataChange
 
         getInitialState: function(){
             return {
                 data: []
             }
         },
+        // 侦听CrudStore的变化，
+        onDataChange: function(data) {
+            var sourceData  = this.state.data;
+
+            switch (data.type) {
+                case 'init':
+                    this.setState({data: data.value});
+                    break;
+                case 'add':
+                    sourceData.push(data.value);
+                    this.setState({data: sourceData});
+                    break;
+                case 'modify':
+                    var newData = sourceData.map(function(item) {
+                        if(item.id == data.value.id) {
+                            item = data.value;
+                        }
+                        return item;
+                    })
+                    this.setState({data: newData});
+                    break;
+                case 'delete':
+                    var list = this.state.data;
+                    var index = list.indexOf(data.value);
+                    index != -1 && list.splice(index, 1);
+                    this.setState({data: list});
+                    break;
+            }
+        },
         onTableBtnClick: function(type, data){
-            var list = this.state.data;
+            
 
             switch(type){
                 case 'modify':
+                    // 点击修改按钮，在 container 组件中调用显示修改框方法
                     this.props.callbackParent(data);
                     break;
                 case 'delete':
-                    var index = list.indexOf(data);
-                    index != -1 && list.splice(index, 1);
-                    this.setState({data: list});
+                    // var list = this.state.data;
+                    // var index = list.indexOf(data);
+                    // index != -1 && list.splice(index, 1);
+                    // this.setState({data: list});
+
+                    // 统一在 store 中操作数据
+                    CrudActions.delete(data);
                     break;
             }
         },

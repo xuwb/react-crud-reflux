@@ -1,13 +1,14 @@
 'use strict';
 
 define(function(require, exports, module) {
-    var React   = require('react'),
-        CrudBtn = require('./crudBtn');
+    var React       = require('react'),
+        CrudActions = require('../actions/crud_actions'),
+        CrudBtn     = require('./crudBtn');
 
     // 添加修改信息
     var InfoBox = React.createClass({
         getInitialState: function() { 
-            return {id:0, title: '', author: ''};
+            return { id: null, title: '', author: ''};
         }, 
         okHandler: function(e){
             var newInfo, showState;
@@ -18,19 +19,19 @@ define(function(require, exports, module) {
                 alert('标题不能为空');
             }
             else {
-                var infoId = this.state.id;
-
                 newInfo = {
-                    id: infoId,
+                    id: this.state.id,
                     title: this.refs.title.value,
                     author: this.refs.author.value ? this.refs.author.value : 'none',
                     description: 'none',
                     pubtime: new Date()
                 }
                 showState = 'none';
+                CrudActions.dataChange(newInfo);
             }
-            this.reset();
-            this.props.callbackParent(showState, newInfo);
+            this.reset(); 
+            // console.log(CrudActions);
+            this.props.callbackParent(showState);
         },
         cancelHander: function(e){
             this.reset();
@@ -43,7 +44,6 @@ define(function(require, exports, module) {
         },
         reset: function() {
             this.setState({
-                id: '',
                 title: '',
                 author: ''
             });

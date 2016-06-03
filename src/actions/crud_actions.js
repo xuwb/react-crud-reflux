@@ -2,10 +2,10 @@
 define(function(require, exports, module) {
     var Reflux    = require('reflux');
 
-    exports.CrudActions = Reflux.createActions([
+    var CrudActions = Reflux.createActions([
         'fetch',
-        'add',
-        'delete',
-        'modify'
+        'dataChange',
+        'delete'
     ]);
+    return CrudActions;
 });

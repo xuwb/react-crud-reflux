@@ -15,7 +15,10 @@ define(function(require, exports, module) {
             var self = this;
             Utils.fetch('src/data.json')
                 .then(function(data) {
-                    self.trigger(data);
+                    self.trigger({
+                        type:  'init',
+                        value: data
+                    });
                 })
                 .catch(function(err) {
                     console.log(err);
@@ -29,14 +32,27 @@ define(function(require, exports, module) {
             //     }
             // });
         },
-        onAdd: function() {
-
+        onDataChange: function(newInfo) {
+            newInfo.id ? this.onModify(newInfo) : this.onAdd(newInfo);
         },
-        onDelete: function() {
-
+        onAdd: function(newInfo) {
+            newInfo.id = Utils.randomBy(1000);
+            this.trigger({
+                type:  'add',
+                value: newInfo
+            });
         },
-        onModify: function() {
-            
+        onModify: function(newInfo) {
+            this.trigger({
+                type:  'modify',
+                value: newInfo
+            });
+        },
+        onDelete: function(delInfo) {
+            this.trigger({
+                type:  'delete',
+                value: delInfo
+            });
         }
     })
 

@@ -27,6 +27,19 @@ define(function(require, exports, module) {
 	            return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s + "." + mi;   
 	        }
 	    },
+	    // 返回 max 和 mix 之间的随机数
+	    randomBy: function(max, mix) {
+	    	var result = 0;
+	    	switch(arguments.length) {
+	    		case 1: 
+	    			result = parseInt(Math.random() * max + 1);
+	    			break;
+	    		case 2: 
+	    			result = parseInt(Math.random() * (max - mix + 1) + mix);
+	    			break;
+	    	}
+	    	return result;
+	    },
 	    fetch: function(url) {
 	    	var promise = new Promise(function(resolve, reject) {
 	    		$.ajax({
