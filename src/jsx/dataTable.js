@@ -9,8 +9,8 @@ define(function (require, exports, module) {
     var CrudBtn = require('./crudBtn'),
         DataRow = require('./dataRow');
 
-    var CrudStore = require('../stores/crud_store'),
-        CrudActions = require('../actions/crud_actions');
+    var CrudStore = require('stores/crud_store'),
+        CrudActions = require('actions/crud_actions');
 
     var DataTable = React.createClass({
         displayName: 'DataTable',
@@ -53,7 +53,6 @@ define(function (require, exports, module) {
             }
         },
         onTableBtnClick: function onTableBtnClick(type, data) {
-
             switch (type) {
                 case 'modify':
                     // 点击修改按钮，在 container 组件中调用显示修改框方法
