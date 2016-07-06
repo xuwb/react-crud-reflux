@@ -24,7 +24,7 @@ define(function (require, exports, module) {
             };
         },
         // 侦听CrudStore的变化，
-        onDataChange: function onDataChange(data) {
+        onDataChange: function onDataChange(data, func) {
             var sourceData = this.state.data;
 
             switch (data.type) {
@@ -51,6 +51,7 @@ define(function (require, exports, module) {
                     this.setState({ data: list });
                     break;
             }
+            if (typeof func === 'function') func();
         },
         onTableBtnClick: function onTableBtnClick(type, data) {
             switch (type) {

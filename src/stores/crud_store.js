@@ -40,6 +40,8 @@ define(function(require, exports, module) {
             this.trigger({
                 type:  'add',
                 value: newInfo
+            }, function(){
+                console.log('addSuccess');
             });
         },
         onModify: function(newInfo) {

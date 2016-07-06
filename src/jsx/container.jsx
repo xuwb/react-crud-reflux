@@ -7,7 +7,13 @@ define(function(require, exports, module) {
         InfoBox   = require('./infoBox'),
         DataTable = require('./dataTable');
 
+        // 测试connect用，与项目无关
+    var Reflux        = require('reflux'),
+        ConnectAction = require('actions/connect_actions'),
+        ConnectStore  = require('stores/connect_store');
+
     var Container = React.createClass({
+        mixins: [Reflux.connect(ConnectStore)],  // 测试connect用，与项目无关
 
         getInitialState: function(){
             return {
@@ -18,13 +24,13 @@ define(function(require, exports, module) {
             }
         },
         onAddClick: function() {
-            this.setState({
-                // infoBtnType: 'add',
-                infoStyle: {
-                    display: 'block'
-                }
-            });
-
+            // this.setState({
+            //     // infoBtnType: 'add',
+            //     infoStyle: {
+            //         display: 'block'
+            //     }
+            // });
+            ConnectAction.add();
             this.refs.infoBox.setState({id: null});
         },
         onModifyClick: function(value){
@@ -81,7 +87,7 @@ define(function(require, exports, module) {
                 <div className="container">
                     <div className="col-top">
                         <h1 className="col-title">增删改DEMO</h1>
-                        <CrudBtn btnName="添加" className="btn btn-add" callbackParent={this.onAddClick} />
+                        <CrudBtn ref='addBtn' btnName="添加" className="btn btn-add" callbackParent={this.onAddClick} />
                     </div>
                     <div className="col-info" style={this.state.infoStyle}>
                         <InfoBox ref="infoBox" callbackParent={this.onInfoClick} />

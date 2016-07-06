@@ -8,9 +8,15 @@ define(function (require, exports, module) {
         InfoBox = require('./infoBox'),
         DataTable = require('./dataTable');
 
+    // 测试connect用，与项目无关
+    var Reflux = require('reflux'),
+        ConnectAction = require('actions/connect_actions'),
+        ConnectStore = require('stores/connect_store');
+
     var Container = React.createClass({
         displayName: 'Container',
 
+        mixins: [Reflux.connect(ConnectStore)], // 测试connect用，与项目无关
 
         getInitialState: function getInitialState() {
             return {
@@ -21,13 +27,13 @@ define(function (require, exports, module) {
             };
         },
         onAddClick: function onAddClick() {
-            this.setState({
-                // infoBtnType: 'add',
-                infoStyle: {
-                    display: 'block'
-                }
-            });
-
+            // this.setState({
+            //     // infoBtnType: 'add',
+            //     infoStyle: {
+            //         display: 'block'
+            //     }
+            // });
+            ConnectAction.add();
             this.refs.infoBox.setState({ id: null });
         },
         onModifyClick: function onModifyClick(value) {
@@ -91,7 +97,7 @@ define(function (require, exports, module) {
                         { className: 'col-title' },
                         '增删改DEMO'
                     ),
-                    React.createElement(CrudBtn, { btnName: '添加', className: 'btn btn-add', callbackParent: this.onAddClick })
+                    React.createElement(CrudBtn, { ref: 'addBtn', btnName: '添加', className: 'btn btn-add', callbackParent: this.onAddClick })
                 ),
                 React.createElement(
                     'div',
