@@ -83,8 +83,16 @@ define(function(require, exports, module) {
             this.setState({articalId: id});
         },
         render: function() {
+            var testList = [];
             return(
                 <div className="container">
+                    测试action传e.target
+                    {[1,2,3,4].forEach(function(val, i){
+                        testList.push(<button key={i} onClick={ConnectAction.testTarget}>target{val}</button>)
+                    })}
+                    {testList}
+                    ==================
+
                     <div className="col-top">
                         <h1 className="col-title">增删改DEMO</h1>
                         <CrudBtn ref='addBtn' btnName="添加" className="btn btn-add" callbackParent={this.onAddClick} />

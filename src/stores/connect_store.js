@@ -21,6 +21,10 @@ define(function(require, exports, module) {
                     me.showInfo = !me.showInfo;
                     console.log(me.showInfo);
             });
+        },
+        onTestTarget: function(e) {
+            // 15版react，e.target改成了e.persist()
+            console.log($(e.target).attr('data-reactid'));
         }
     });
 

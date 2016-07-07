@@ -86,9 +86,21 @@ define(function (require, exports, module) {
             this.setState({ articalId: id });
         },
         render: function render() {
+            var testList = [];
             return React.createElement(
                 'div',
                 { className: 'container' },
+                '测试action传e.target',
+                [1, 2, 3, 4].forEach(function (val, i) {
+                    testList.push(React.createElement(
+                        'button',
+                        { key: i, onClick: ConnectAction.testTarget },
+                        'target',
+                        val
+                    ));
+                }),
+                testList,
+                '==================',
                 React.createElement(
                     'div',
                     { className: 'col-top' },
