@@ -1,4 +1,4 @@
-$bg: #fff;
+$bg: #efc;
 @mixin firefox-message($selector) {
     &:#{$selector} {
         content: "Hi, Firefox users!";
