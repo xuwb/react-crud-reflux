@@ -16,6 +16,7 @@ define(function(require, exports, module) {
         mixins: [Reflux.connect(ConnectStore)],  // 测试connect用，与项目无关
 
         getInitialState: function(){
+            this.props.outerFunc.call(this);
             return {
                 infoBtnType: 'add',
                 infoStyle: {
@@ -98,11 +99,19 @@ define(function(require, exports, module) {
                         <CrudBtn ref='addBtn' btnName="添加" className="btn btn-add" callbackParent={this.onAddClick} />
                     </div>
                     <div className="col-info" style={this.state.infoStyle}>
-                        <InfoBox ref="infoBox" callbackParent={this.onInfoClick} />
+                        <InfoBox ref="infoBox" />
                     </div>
                     <DataTable ref="dataTable" source={this.props.dataSource} callbackParent={this.onModifyClick} setLastId={this.setLastId} />
                 </div>
             )
+        },
+        componentDidMount: function() {
+            let me = this,
+                prop = me.prop;
+            prop.init.call(me);
+        },
+        componentWillUnmount : function(){
+            prop.destroy.call(me);
         }
     });
     return Container;

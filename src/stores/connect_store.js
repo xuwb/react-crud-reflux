@@ -2,7 +2,6 @@
 
 define(function(require, exports, module) {
     var Reflux      = require('reflux'),
-        CrudActions = require('../actions/crud_actions'),
         ConnectActions = require('actions/connect_actions'),
         Utils       = require('common/util');
 

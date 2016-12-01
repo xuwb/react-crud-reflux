@@ -5,6 +5,7 @@
 define(function (require, exports, module) {
 
     var React = require('react');
+    var ConnectAction = require('actions/connect_actions');
 
     var CrudBtn = React.createClass({
         displayName: 'CrudBtn',
@@ -19,6 +20,7 @@ define(function (require, exports, module) {
             switch (this.props.btnName) {
                 case '添加':
                     this.props.callbackParent();
+                    // ConnectAction.add();
                     break;
                 case '修改':
                     this.props.callbackParent('modify', this.props.data);

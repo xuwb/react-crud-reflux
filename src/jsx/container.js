@@ -19,6 +19,7 @@ define(function (require, exports, module) {
         mixins: [Reflux.connect(ConnectStore)], // 测试connect用，与项目无关
 
         getInitialState: function getInitialState() {
+            this.props.outerFunc.call(this);
             return {
                 infoBtnType: 'add',
                 infoStyle: {
@@ -114,10 +115,18 @@ define(function (require, exports, module) {
                 React.createElement(
                     'div',
                     { className: 'col-info', style: this.state.infoStyle },
-                    React.createElement(InfoBox, { ref: 'infoBox', callbackParent: this.onInfoClick })
+                    React.createElement(InfoBox, { ref: 'infoBox' })
                 ),
                 React.createElement(DataTable, { ref: 'dataTable', source: this.props.dataSource, callbackParent: this.onModifyClick, setLastId: this.setLastId })
             );
+        },
+        componentDidMount: function componentDidMount() {
+            var me = this,
+                prop = me.prop;
+            prop.init.call(me);
+        },
+        componentWillUnmount: function componentWillUnmount() {
+            prop.destroy.call(me);
         }
     });
     return Container;
